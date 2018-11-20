@@ -1,0 +1,109 @@
+
+body {
+	background: #E0E0E0;
+  font-style: sans-serif;
+  font-size: 14px;
+}
+
+.container {	
+  margin: 0 auto;
+  padding-bottom: 100px;
+  width: 1200px; 
+}
+
+header {
+  padding: 30px; 
+}
+
+header i {
+  color: #505050;
+  font-size: 20px;
+}
+
+.logo {
+  margin: 0 70px;
+  vertical-align: middle;
+  width: 200px;
+}
+
+form {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+input {
+  
+  padding: 10px;
+  width: 600px;
+}
+
+input:hover, 
+input:focus,
+input:active,
+input:focus-within {
+  outline: 2px solid #666666;
+}
+
+.videosWrapper {
+  align-items: stretch;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  margin: 0 auto;
+}
+
+.video {
+  background: #F0F0F0;
+  border: solid 1px #BEBEBE;
+  padding: 15px;
+  margin: 5px;
+  max-width: 250px;
+}
+
+.thumb {
+  max-width: 100%;
+  text-align: center;
+}
+
+.video-info {
+  color: #666666;
+  padding: 10px;
+}
+
+.video-info div {
+  margin: 15px 20px 15px 0;
+}
+
+.video-info div span {
+  margin-left: 10px;
+}
+
+ h2 {
+  color: #505050;
+  font-size: 20px;
+  text-align: center;
+ }
+
+ p {
+  font-size: 12px;
+  text-align: justify;
+ }
+
+a {
+  text-decoration: none;
+}
+
+.likes,
+.dislikes {
+  display: inline-block;
+}
+
+.likes span {
+  color: #339933;
+}
+
+.dislikes span{
+  color: #F00000 ;
+}
+
+
