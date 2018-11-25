@@ -6,12 +6,15 @@ import Search from './startSearch';
 export default class App {
   constructor () {
     this.search = new Search();
+    this.x0 = null;
+    this.page = 0;
   }
 
   init() {
     document.body.innerHTML = container;
     document.querySelector('.container').innerHTML = header + videosWrapper;
     this.addFormListener();
+    this.addSwipeListeners();
   }
 
   addFormListener() {
@@ -21,6 +24,42 @@ export default class App {
       this.search.startSearch(this.getInputValue());
     });
   }
+
+  addSwipeListeners() {
+    const that = this;
+    let x0 = null;
+    function unify(event) { 
+      return event.changedTouches ? event.changedTouches[0] : event;
+    }
+
+    function lock(event) {
+      x0 = unify(event).clientX;
+    }
+
+    function move(event) {
+      if (x0) {
+        let dx = unify(event).clientX - x0;
+        let s = Math.sign(dx);
+        x0 = null;
+        
+        const page = that.search.getCurrentPage();
+        if (s < 0) {
+          that.search.nextPage();
+        } else {
+          that.search.prevPage();
+        }
+        
+      }
+    };
+    document.querySelector('.videosWrapper').addEventListener('mousedown', lock);
+    document.querySelector('.videosWrapper').addEventListener('touchstart', lock);
+    document.querySelector('.videosWrapper').addEventListener('mouseup', move);
+    document.querySelector('.videosWrapper').addEventListener('touchend', move);
+    document.querySelector('.videosWrapper').addEventListener('touchmove', event => {event.preventDefault()}, false);
+  }
+
+  
+
 
   getInputValue() {
     return document.getElementsByName('youtubeSearch')[0].value;

@@ -27,8 +27,7 @@ export default class Search {
     .then((response) => {
       const result = JSON.parse(response);
       this.nextPageToken = result.nextPageToken;
-      console.log(this.nextPageToken);
-      this.videos = result.items;
+      this.videos = this.videos.concat(result.items);
 
       const ids = result.items.map(item => item.id.videoId);
       const statsUrl = statsQuery + `&id=${ids.join(',')}`;
@@ -41,11 +40,29 @@ export default class Search {
     });
   }
 
+  nextPage() {
+    if (this.pager.isLastPage() && this.nextPageToken) {
+      this.startSearch(this.searchString);
+      this.pager.openNextPage();
+    } else {
+      this.pager.openNextPage();
+    }
+  }
+
+  prevPage() {
+    this.pager.openPrevPage();
+  }
+
+  getCurrentPage() {
+    this.pager.getCurrentPage();
+  }
+
   render(result, statsResult) {
     this.pager.setTotalCount(this.videos.length);
-    this.pager.openNextPage();
-
+    
     const videos = result.items.map((item, key) => videoRender(result.items[key], statsResult.items[key].statistics));
+    document.querySelector('.videosWrapper').setAttribute('style', 'width:calc('+this.pager.getTotalCount()+' *100%);');
     videos.map(item => document.querySelector('.videosWrapper').appendChild(item));
+    this.pager.render();
   }
 }

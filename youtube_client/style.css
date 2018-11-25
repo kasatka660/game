@@ -73,6 +73,7 @@ input:focus-within {
   max-width: 350px;
   pointer-events: none;
   width: calc(100%/var(--n));
+  transition: 1s ease-in-out;
 }
 
 .thumb {
