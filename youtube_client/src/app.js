@@ -23,7 +23,7 @@ export default class App {
     this.form = document.querySelector('form');
     this.form.addEventListener('submit', (event) => {
       event.preventDefault();
-      this.search.startSearch(this.getInputValue());
+      this.search.startSearch(App.getInputValue(), true);
     });
   }
 
