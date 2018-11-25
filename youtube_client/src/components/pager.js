@@ -53,12 +53,12 @@ export default class Pager {
     paging.classList.add('paging');
     const circle = document.createElement('span');
     circle.classList.add('circle');
-    for (let i = 0; i < this.totalCount / this.itemsPerPage; i += 1) {
+    for (let i = 0; i < 5; i += 1) {
       const item = circle.cloneNode();
-      item.textContent = i + 1;
+      item.textContent = this.currentPage;
       paging.appendChild(item);
     }
-    paging.children[this.currentPage - 1].classList.add('active');
+    paging.children[(this.currentPage - 1)%5].classList.add('active');
     document.getElementsByTagName('main')[0].appendChild(paging);
 
 

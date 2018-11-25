@@ -4,7 +4,7 @@ export default function httpGet(url) {
   return new Promise(((resolve, reject) => {
     const request = new XMLHttpRequest();
     request.open('GET', url, true);
-    request.onload = () => {
+    request.onload = function loading() {
       if (this.status === 200) {
         resolve(this.response);
       } else {

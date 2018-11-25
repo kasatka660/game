@@ -13,8 +13,8 @@ export default class Search {
     this.videos = [];
   }
 
-  startSearch(searchString) {
-    if (searchString !== this.searchString) {
+  startSearch(searchString, newPage = false) {
+    if (newPage) {
       this.searchString = searchString;
       this.nextPageToken = '';
 
