@@ -1,23 +1,51 @@
-import key from './key';
+import { query, statsQuery } from './variables';
 import httpGet from './httpGet';
 import videoRender from './videoRender';
+import Pager from './components/pager';
 
-// Function starting after the form was submited.
-export default function startSearch(event) {
-  const searchQuery = document.getElementsByName("youtubeSearch")[0].value;
-  const formatedQuery = encodeURIComponent(searchQuery);
-  const theUrl = `https://www.googleapis.com/youtube/v3/search?key=${key}&type=video&part=snippet&maxResults=15&q=${formatedQuery}`;
-  httpGet(theUrl)
-    .then(response => {
-      const json = JSON.parse(response);
-      const ids = json.items.map(item => item.id.videoId);
-      const statsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${key}&id=${ids.join(',')}&part=statistics`;
+export default class Search {
+  constructor() {
+    this.nextPageToken = '';
+    this.searchString = '';
+    this.pager = {};
+    this.videos = [];
+  }
+
+  startSearch(searchString) {
+    if (searchString != this.searchString) {
+      this.searchString = searchString;
+      this.nextPageToken = '';
+      this.pager = new Pager(3, 15);
+      this.videos = [];
+    }
+
+    const formatedString = encodeURIComponent(this.searchString);
+    const searchUrl = query + '&q=' + formatedString
+      + (this.nextPageToken ? '&pageToken='+ this.nextPageToken : '');
+
+    httpGet(searchUrl)
+    .then((response) => {
+      const result = JSON.parse(response);
+      this.nextPageToken = result.nextPageToken;
+      console.log(this.nextPageToken);
+      this.videos = result.items;
+
+      const ids = result.items.map(item => item.id.videoId);
+      const statsUrl = statsQuery + `&id=${ids.join(',')}`;
+
       httpGet(statsUrl)
-        .then(response => {
-          const json2 = JSON.parse(response);
-          const videos = json.items.map((item, key) => videoRender(json.items[key], json2.items[key].statistics));
-          document.querySelector('.videosWrapper').innerHTML = videos.join('');
+        .then((response) => {
+          const statsResult = JSON.parse(response);
+          this.render(result, statsResult);
         });
+    });
+  }
 
-     });
-}; 
+  render(result, statsResult) {
+    this.pager.setTotalCount(this.videos.length);
+    this.pager.openNextPage();
+
+    const videos = result.items.map((item, key) => videoRender(result.items[key], statsResult.items[key].statistics));
+    videos.map(item => document.querySelector('.videosWrapper').appendChild(item));
+  }
+}
