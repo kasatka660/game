@@ -3,6 +3,8 @@ import httpGet from './httpGet';
 import videoRender from './videoRender';
 import Pager from './components/pager';
 
+/* global document */
+
 export default class Search {
   constructor() {
     this.nextPageToken = '';
@@ -12,32 +14,41 @@ export default class Search {
   }
 
   startSearch(searchString) {
-    if (searchString != this.searchString) {
+    if (searchString !== this.searchString) {
       this.searchString = searchString;
       this.nextPageToken = '';
-      this.pager = new Pager(3, 15);
+
+      const width = document.getElementsByTagName('main')[0].offsetWidth;
+      if (width < 1000) {
+        this.pager = new Pager(1, 15);
+      } else {
+        this.pager = new Pager(3, 15);
+      }
       this.videos = [];
+      if (document.getElementsByClassName('video').length) {
+        document.querySelector('.videosWrapper').innerHTML = '';
+      }
     }
 
     const formatedString = encodeURIComponent(this.searchString);
-    const searchUrl = query + '&q=' + formatedString
-      + (this.nextPageToken ? '&pageToken='+ this.nextPageToken : '');
+    const searchUrl = `${query}&q=${formatedString
+    }${this.nextPageToken ? `&pageToken=${this.nextPageToken}` : ''}`;
 
     httpGet(searchUrl)
-    .then((response) => {
-      const result = JSON.parse(response);
-      this.nextPageToken = result.nextPageToken;
-      this.videos = this.videos.concat(result.items);
+      .then((response) => {
+        const result = JSON.parse(response);
+        this.nextPageToken = result.nextPageToken;
+        this.videos = this.videos.concat(result.items);
 
-      const ids = result.items.map(item => item.id.videoId);
-      const statsUrl = statsQuery + `&id=${ids.join(',')}`;
+        const ids = result.items.map(item => item.id.videoId);
+        const statsUrl = `${statsQuery}&id=${ids.join(',')}`;
 
-      httpGet(statsUrl)
-        .then((response) => {
-          const statsResult = JSON.parse(response);
-          this.render(result, statsResult);
-        });
-    });
+        httpGet(statsUrl)
+          .then((statsResponse) => {
+            const statsResult = JSON.parse(statsResponse);
+            this.render(result, statsResult);
+          });
+      });
   }
 
   nextPage() {
@@ -59,9 +70,10 @@ export default class Search {
 
   render(result, statsResult) {
     this.pager.setTotalCount(this.videos.length);
-    
-    const videos = result.items.map((item, key) => videoRender(result.items[key], statsResult.items[key].statistics));
-    document.querySelector('.videosWrapper').setAttribute('style', 'width:calc('+this.pager.getTotalCount()+' *100%);');
+
+    const videos = result.items.map(
+      (item, key) => videoRender(result.items[key], statsResult.items[key].statistics),
+    );
     videos.map(item => document.querySelector('.videosWrapper').appendChild(item));
     this.pager.render();
   }

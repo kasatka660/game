@@ -3,8 +3,10 @@ import container from './components/container';
 import videosWrapper from './components/videosWrapper';
 import Search from './startSearch';
 
+/* global document */
+
 export default class App {
-  constructor () {
+  constructor() {
     this.search = new Search();
     this.x0 = null;
     this.page = 0;
@@ -28,7 +30,7 @@ export default class App {
   addSwipeListeners() {
     const that = this;
     let x0 = null;
-    function unify(event) { 
+    function unify(event) {
       return event.changedTouches ? event.changedTouches[0] : event;
     }
 
@@ -38,30 +40,24 @@ export default class App {
 
     function move(event) {
       if (x0) {
-        let dx = unify(event).clientX - x0;
-        let s = Math.sign(dx);
+        const dx = unify(event).clientX - x0;
+        const s = Math.sign(dx);
         x0 = null;
-        
-        const page = that.search.getCurrentPage();
         if (s < 0) {
           that.search.nextPage();
         } else {
           that.search.prevPage();
         }
-        
       }
-    };
+    }
     document.querySelector('.videosWrapper').addEventListener('mousedown', lock);
     document.querySelector('.videosWrapper').addEventListener('touchstart', lock);
     document.querySelector('.videosWrapper').addEventListener('mouseup', move);
     document.querySelector('.videosWrapper').addEventListener('touchend', move);
-    document.querySelector('.videosWrapper').addEventListener('touchmove', event => {event.preventDefault()}, false);
+    document.querySelector('.videosWrapper').addEventListener('touchmove', (event) => { event.preventDefault(); }, false);
   }
 
-  
-
-
-  getInputValue() {
+  static getInputValue() {
     return document.getElementsByName('youtubeSearch')[0].value;
   }
 }
