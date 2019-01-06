@@ -1,0 +1,22 @@
+.monster-field {
+  display: inline-block;
+  padding-top: 20px;
+    img.monster {
+      min-height: 450px;
+    }
+}
+
+.monster-name {
+	padding-bottom: 30px;
+	text-transform: uppercase;
+	font-weight: 900;
+	text-align: center;
+	font-size: 20px;
+}
+
+.monster { 
+  position: relative;
+  animation: changeOpacity 3s,
+  			 moveCharacters 3s 3s infinite;
+}
+
