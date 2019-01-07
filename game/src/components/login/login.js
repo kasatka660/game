@@ -31,7 +31,6 @@ export default () => {
     $('#loginForm').modal('hide');
     $('#loginForm').remove();
     $('.modal-backdrop').remove();
-    console.log('ok0');
     resolve(newPlayer);
   } 
 

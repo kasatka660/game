@@ -1,6 +1,6 @@
 import {dialogView} from './dialog.template'
 import {renderQuestion, renderQuestionDialog} from './../tasks/question.template'
-import simpleMathQuestions from './../tasks/simpleMath/simpleMath'
+import generateMathQuestion from './../tasks/simpleMath/simpleMath'
 import translationQuestions from './../tasks/translation/translation'
 import './dialog.scss'
 import {KEYS} from './../../variables.js'
@@ -54,7 +54,6 @@ export default class Dialog {
       }
     }.bind(this));
     document.body.addEventListener('keydown', function(e) {
-      console.log(e);
       if (e.keyCode === KEYS.ENTER_KEY && this.isModalOpen('#spellSelection')) {
         const btnId = $('.selected').attr('id');
         this.toQuestionMode(btnId);
@@ -65,13 +64,13 @@ export default class Dialog {
       this.toQuestionMode(btnId);
     }.bind(this));
 
-    
     const submitBtn = $('#submit');
-
     submitBtn.on('click', function() {
+      console.log(submitBtn);
       const answerInput = $('#answer');
       const userAnswer = answerInput.val();
       this.battle.checkIfCorrect(userAnswer, this.currentQuestion.answer);
+      alert('a');
     }.bind(this));
     document.body.addEventListener('keydown', function(e) {
       if (e.keyCode === KEYS.ENTER_KEY && this.isModalOpen('#questionForm')){
@@ -90,20 +89,20 @@ export default class Dialog {
     return $(id).hasClass('show');
   }
   getTheQuestion(questionType) {
-    if (questionType == 'simpleMath') {
-      this.targetQuestions = simpleMathQuestions;
-    } else if (questionType == 'translation') {
+    if (questionType === 'simpleMath') {
+      this.currentQuestion = generateMathQuestion();
+      console.log(this.currentQuestion)
+    } else if (questionType === 'translation') {
       this.targetQuestions = translationQuestions;
+      const number = this.getRandomInt(this.targetQuestions.length);  
+      this.currentQuestion = this.targetQuestions[number];
     }
-    const number = this.getRandomInt(this.targetQuestions.length);  
-    this.currentQuestion = this.targetQuestions[number];
-    $('#questionForm .modal-content').html(renderQuestion(this.targetQuestions[number]));
+    
+    $('#questionForm .modal-content').html(renderQuestion(this.currentQuestion));
     $("#questionForm").modal('show');
     $('#questionForm').on('shown.bs.modal', function() {
       $('#answer').trigger('focus')
-    })
-
-     
+    })    
   }
   getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));

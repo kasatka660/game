@@ -11,7 +11,7 @@ export default class Indicator {
     return indicatorView;
   }
   reduceScore() {
-  	this.HP -=50;
+  	this.HP -=100;
   }
   increaseScore() {
   	this.HP +=10;

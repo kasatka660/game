@@ -10,10 +10,16 @@ export default class Player {
     this.indicator = new Indicator(this.playerScore);
   }
   renderPlayer() {
-  	document.querySelector('.left-side').innerHTML = this.indicator.render() + playerView;	
+  	$('.left-side').append(this.indicator.render() + playerView);
+    $('.player-name').html(this.playerName);
+
   }
   updateScore() {
     this.indicator.reduceScore(); 
     this.indicator.setCurrentScore('.left-side');
+  }
+  playSound() {
+    var audio = new Audio('./hit-sound.wav');
+    audio.play();
   }
 }

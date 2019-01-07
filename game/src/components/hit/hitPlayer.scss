@@ -17,7 +17,7 @@ img {
     top: 150px;
   }
   to {
-    left: -160px;
+    left: -250px;
   }
 }
 
@@ -34,7 +34,10 @@ img {
   80% {
     transform: scale(1);
   }
+  90% {
+    transform: scale(0.9) ;
+  }
   100% {
-    transform: scale(1.5);
+    transform: scale(0);
   }
 }
