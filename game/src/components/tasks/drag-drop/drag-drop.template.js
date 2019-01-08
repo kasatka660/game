@@ -1,14 +1,3 @@
-export const dragAndDropQuestionForm = `
-
-
-<ul id="sortable">
-  <li>Item 1</li>
-  <li>Item 2</li>
-  <li>Item 3</li>
-  <li>Item 4</li>
-  <li>Item 5</li>
-</ul> `;
-
 export function createDragAndDropQuestion(dragDrop) {	
   return `<div class="modal-header">
             <h5 class="modal-title">${dragDrop.title}</h5>
