@@ -19,7 +19,7 @@ export default class Player {
     this.indicator.setCurrentScore('.left-side');
   }
   playSound() {
-    var audio = new Audio('./hit-sound.wav');
+    var audio = new Audio('./sound-player.wav');
     audio.play();
   }
 }

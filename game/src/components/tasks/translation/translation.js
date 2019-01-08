@@ -1,43 +1,39 @@
 const translationQuestions = [
   {
     question: "ball",
-    answer: "мяч"
+    answer: ['мяч', 'шар']
   },
   {
     question: "rainbow",
-    answer: "радуга"
+    answer: ["радуга"]
   },
   {
     question: "дождь",
-    answer: "rain"
+    answer: ["rain"]
   },
   {
     question: "juice",
-    answer: "сок"
+    answer: ["сок"]
   },
   {
     question: "дерево",
-    answer: "tree"
-  },
-   {
-    question: "ball",
-    answer: "мяч"
+    answer: ["tree"]
   },
   {
     question: "собака",
-    answer: "dog"
+    answer: ["dog", "puppy"]
   },
   {
     question: "кот",
-    answer: "cat"
+    answer: ["cat"]
   },
   {
     question: "мышь",
-    answer: "mouse"
+    answer: ["mouse"]
   },
   {
     question: "weather",
-    answer: "погода"
+    answer: ["погода"]
   }
 ]
 

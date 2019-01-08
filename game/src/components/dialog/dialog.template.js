@@ -11,7 +11,7 @@ export const dialogView = `
       <div class="modal-body">
         <button type="button" id="simpleMath" class="btn shoose-btn">Simple Math</button>
         <button type="button" id="translation" class="btn shoose-btn">Translation</button>
-        <button type="button" class="btn shoose-btn">Smth else</button>
+        <button type="button" id="dragAndDrop" class="btn shoose-btn">Smth else</button>
       </div>     
     </div>
   </div>

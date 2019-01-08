@@ -2,6 +2,8 @@ import {dialogView} from './dialog.template'
 import {renderQuestion, renderQuestionDialog} from './../tasks/question.template'
 import generateMathQuestion from './../tasks/simpleMath/simpleMath'
 import translationQuestions from './../tasks/translation/translation'
+import {createDragAndDropQuestion} from './../tasks/drag-drop/drag-drop.template'
+import {dragAndDropQuestions} from './../tasks/drag-drop/drag-drop'
 import './dialog.scss'
 import {KEYS} from './../../variables.js'
 
@@ -64,19 +66,18 @@ export default class Dialog {
       this.toQuestionMode(btnId);
     }.bind(this));
 
-    const submitBtn = $('#submit');
-    submitBtn.on('click', function() {
-      console.log(submitBtn);
-      const answerInput = $('#answer');
-      const userAnswer = answerInput.val();
-      this.battle.checkIfCorrect(userAnswer, this.currentQuestion.answer);
-      alert('a');
-    }.bind(this));
+
     document.body.addEventListener('keydown', function(e) {
       if (e.keyCode === KEYS.ENTER_KEY && this.isModalOpen('#questionForm')){
-        const answerInput = $('#answer');
-        const userAnswer = answerInput.val();
-      this.battle.checkIfCorrect(userAnswer, this.currentQuestion.answer);
+        if (this.questionType !== 'dragAndDrop') {
+          const answerInput = $('#answer');
+          const userAnswer = answerInput.val();
+          this.battle.checkIfCorrect(userAnswer, this.currentQuestion.answer);
+        } else {
+          const answerField = $("#sortable li");
+          const userAnswer = answerField.map((i, item) => item.textContent);
+          this.battle.checkIfCorrectDragAndDrop(userAnswer, this.currentQuestion.answer);
+        }
       }
     }.bind(this)); 
   }
@@ -89,20 +90,45 @@ export default class Dialog {
     return $(id).hasClass('show');
   }
   getTheQuestion(questionType) {
+    this.questionType = questionType;
     if (questionType === 'simpleMath') {
       this.currentQuestion = generateMathQuestion();
-      console.log(this.currentQuestion)
+      this.renderStandartQuestion();
     } else if (questionType === 'translation') {
       this.targetQuestions = translationQuestions;
       const number = this.getRandomInt(this.targetQuestions.length);  
       this.currentQuestion = this.targetQuestions[number];
-    }
-    
+      this.renderStandartQuestion();
+    } else if (questionType === 'dragAndDrop') {
+      this.targetQuestions = dragAndDropQuestions;
+      const number = this.getRandomInt(this.targetQuestions.length);  
+      this.currentQuestion = this.targetQuestions[number];
+      this.renderDragAndDropQuestion();
+    }    
+  }
+  renderStandartQuestion() {
     $('#questionForm .modal-content').html(renderQuestion(this.currentQuestion));
     $("#questionForm").modal('show');
     $('#questionForm').on('shown.bs.modal', function() {
       $('#answer').trigger('focus')
-    })    
+    });
+    const submitBtn = $('#submit');
+    submitBtn.on('click', function() {
+      const answerInput = $('#answer');
+      const userAnswer = answerInput.val();
+      this.battle.checkIfCorrect(userAnswer, this.currentQuestion.answer);
+    }.bind(this));
+  }
+  renderDragAndDropQuestion() {
+    $('#questionForm .modal-content').html(createDragAndDropQuestion(this.currentQuestion));
+    $("#questionForm").modal('show');
+    $("#sortable").sortable();
+    const submitBtn = $('#submit');
+    submitBtn.on('click', function() {
+      const answerField = $("#sortable li");
+      const userAnswer = answerField.map((i, item) => item.textContent);
+      this.battle.checkIfCorrectDragAndDrop(userAnswer, this.currentQuestion.answer);
+    }.bind(this));
   }
   getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));

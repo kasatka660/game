@@ -33,7 +33,7 @@ export default class Monster {
 		this.indicator.setCurrentScore('.right-side');
 	}
   playSound() {
-    var audio = new Audio('./hit-sound.wav');
+    var audio = new Audio('./sound-monster.wav');
     audio.play();
   }
 }

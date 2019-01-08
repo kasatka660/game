@@ -27,6 +27,8 @@ export default () => {
     if (nameInput.value.length == 0) {
       return;
     }
+    
+    document.body.removeEventListener('keydown',loginOnkeydown);
     const newPlayer = new Player(nameInput.value);
     $('#loginForm').modal('hide');
     $('#loginForm').remove();
@@ -41,16 +43,18 @@ export default () => {
       document.querySelector('.start-game-btn').remove();
       $('#loginForm').modal('show'); 
     });
-    document.body.addEventListener('keydown', function(e) {
-      if (e.keyCode === KEYS.ENTER_KEY) {
-        $('.start-game-btn').remove();
-        $('#loginForm').modal('show');
-      }
-    });
+    
+    document.body.addEventListener('keydown', loginOnkeydown);
+
   }
   addStartBtn();
   })  
 }
 
-
+const loginOnkeydown = function(e) {
+  if (e.keyCode === KEYS.ENTER_KEY) {
+    $('.start-game-btn').remove();
+    $('#loginForm').modal('show');
+  }
+}
 

@@ -2,8 +2,8 @@ function generateMathQuestion() {
   const maxNumber = 20;
   const signs = ['+', '-', "*", "/"];
 
-  const signKey = getRandomInt(signs.length -1);
-
+  const signKey = getRandomInt(signs.length);
+  console.log(signKey);
   let numberOne = getRandomInt(maxNumber);
   let numberTwo = getRandomInt(maxNumber);
 
