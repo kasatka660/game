@@ -1,43 +1,27 @@
-function generateMathQuestion() {
-  const maxNumber = 20;
-  const signs = ['+', '-', "*", "/"];
+import {generateMathQuestion} from './simpleMathQuestions'
+import {createSimpleMathQuestion} from './simpleMath.template'
 
-  const signKey = getRandomInt(signs.length);
-  console.log(signKey);
-  let numberOne = getRandomInt(maxNumber);
-  let numberTwo = getRandomInt(maxNumber);
-
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
+class SimpleMath {
+  createQuestion() {
+    this.currentQuestion = generateMathQuestion();
+    return createSimpleMathQuestion(this.currentQuestion);
+  } 
+  render() {
+  	$('#questionForm .modal-content').html(this.createQuestion());
+    $("#questionForm").modal('show');
+    $('#questionForm').on('shown.bs.modal', function() {
+      $('#answer').trigger('focus')
+    });
   }
-  let answer;
-  let question;
-  switch(signs[signKey]) {
-    case "+":
-    question = numberOne + " + " + numberTwo;
-    answer = numberOne + numberTwo;
-    break;
-    case "-":
-    if (numberOne < numberTwo) {
-      question = numberTwo + ' - ' + numberOne;
-      answer = numberTwo - numberOne;
-    } else {
-      question = numberOne + " - " + numberTwo;
-      answer = numberOne - numberTwo;
+  checkIfCorrect() {
+  	const answerInput = $('#answer');
+    const userAnswer = answerInput.val();
+    let isCorrect = false;
+    if (userAnswer == this.currentQuestion.answer) {
+      isCorrect = true;
     }
-    break;
-    case "*":
-    numberOne = numberOne % 10 + 1;
-    numberTwo = numberTwo % 10 + 1;
-    question = numberOne + " * " + numberTwo;
-    answer = numberOne * numberTwo;
-    break;
-    case "/":
-    question = numberOne*numberTwo + " / " + numberTwo;
-    answer = numberOne;
-    break;
+    return isCorrect;
   }
-  return {question, answer}
 }
-  
-export default generateMathQuestion
+
+export default SimpleMath;
