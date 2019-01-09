@@ -1,5 +1,3 @@
-import './drag-drop.scss'
-
 export const dragAndDropQuestions = [
 	{
 	 question: ['a', 'l', 'p', 'e', 'p'],
