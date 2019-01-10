@@ -11,7 +11,7 @@ export default class Player {
   }
 
   renderPlayer() {
-    $('.left-side').append(this.indicator.render() + playerView);
+    $('.left-side').append(Indicator.render() + playerView);
     $('.player-name').html(this.playerName);
   }
 

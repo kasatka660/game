@@ -11,7 +11,7 @@ export default class Monster {
   }
 
   renderMonster(monsterNumb) {
-    $('.right-side').append(this.indicator.render() + monsterView);
+    $('.right-side').append(Indicator.render() + monsterView);
     $('.monster-name').html(this.generateMonsterName());
     const monsterPics = ['./../src/screens/home/images/lady-monster.png',
       './../src/screens/home/images/fish-monster.png',
@@ -23,9 +23,9 @@ export default class Monster {
     const monsterFirstNamePart = ['mad', 'angry', 'silly', 'huge', 'selfish', 'horrible', 'fearful'];
     const monsterSecondNamePart = ['Beast', 'Horror', 'Giant', 'Devil', 'Mutant'];
     const monsterThirdNamePart = ['Sally', 'Peggy', 'Sue', 'Jammy'];
-    return `${monsterFirstNamePart[this.getRandomInt(monsterFirstNamePart.length)]} ${
-      monsterSecondNamePart[this.getRandomInt(monsterSecondNamePart.length)]} ${
-      monsterThirdNamePart[this.getRandomInt(monsterThirdNamePart.length)]}`;
+    return `${monsterFirstNamePart[Monster.getRandomInt(monsterFirstNamePart.length)]} ${
+      monsterSecondNamePart[Monster.getRandomInt(monsterSecondNamePart.length)]} ${
+      monsterThirdNamePart[Monster.getRandomInt(monsterThirdNamePart.length)]}`;
   }
 
   static getRandomInt(max) {

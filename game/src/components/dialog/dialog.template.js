@@ -11,7 +11,7 @@ export default
       <div class="modal-body">
         <button type="button" id="simpleMath" class="btn choose-btn">Simple Math</button>
         <button type="button" id="translation" class="btn choose-btn">Translation</button>
-        <button type="button" id="dragAndDrop" class="btn choose-btn">Sort the Letters</button>
+        <button type="button" id="dragAndDrop" class="btn choose-btn">Sort Letters</button>
       </div>     
     </div>
   </div>

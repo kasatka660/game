@@ -44,7 +44,7 @@ export default class Dialog {
   init(battle) {
     this.battle = battle;
     this.questionsControl = new QuestionsControl(battle);
-    this.renderDialog();
+    Dialog.renderDialog();
     $('#pickTheSpell').on('click', () => {
       $('#pickTheSpell').hide();
       $('#spellSelection').modal('show');

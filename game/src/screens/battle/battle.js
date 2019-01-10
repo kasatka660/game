@@ -2,11 +2,13 @@ import './battle.scss';
 import battleGrid from './battle.template';
 import Dialog from '../../components/dialog/dialog';
 import Monster from '../../components/monster/monster';
+import Player from '../../components/player/player';
 import monsterHitting from '../../components/hit/hitMonster';
 import playerHitting from '../../components/hit/hitPlayer';
 import newGameBtn from './newGame.template';
 import { START_SCORE, KEYS } from '../../variables';
 import { scoreTable, createTableRow } from '../../components/score/score.template';
+require('isomorphic-fetch');
 
 export default class Battle {
   constructor(player, monster) {
@@ -30,7 +32,7 @@ export default class Battle {
 
   hitTheMonster() {
     $('.middle').append(monsterHitting);
-    this.monster.playSound();
+    Monster.playSound();
     setTimeout(() => {
       $('.monster-hitting').hide();
       this.monster.updateScore();
@@ -42,7 +44,7 @@ export default class Battle {
 
   hitThePlayer() {
     $('.middle').append(playerHitting);
-    this.player.playSound();
+    Player.playSound();
     setTimeout(() => {
       $('.player-hitting').hide();
       this.player.updateScore();
