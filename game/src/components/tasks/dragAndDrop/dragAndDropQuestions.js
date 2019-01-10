@@ -1,52 +1,52 @@
-export const dragAndDropQuestions = [
-	{
-	 question: ['a', 'l', 'p', 'e', 'p'],
-	 title: " Sort it !",
-	 answer: ['a', 'p', 'p', 'l', 'e']
-	},
+export default [
   {
-   question: ['a', 'l', 'b', 't', 'e'],
-   title: " Sort it !",
-   answer: ['t', 'a', 'b', 'l', 'e']
+    question: ['a', 'l', 'p', 'e', 'p'],
+    title: ' Sort it !',
+    answer: ['a', 'p', 'p', 'l', 'e'],
   },
   {
-   question: ['u', 'c', 'p'],
-   title: " Sort it !",
-   answer: ['c', 'u', 'p']
+    question: ['a', 'l', 'b', 't', 'e'],
+    title: ' Sort it !',
+    answer: ['t', 'a', 'b', 'l', 'e'],
   },
   {
-   question: ['u', 'n', 's'],
-   title: " Sort it !",
-   answer: ['s', 'u', 'n']
+    question: ['u', 'c', 'p'],
+    title: ' Sort it !',
+    answer: ['c', 'u', 'p'],
   },
   {
-   question: ['o', 'o', 'n', 'm'],
-   title: " Sort it !",
-   answer: ['m', 'o', 'o', 'n']
+    question: ['u', 'n', 's'],
+    title: ' Sort it !',
+    answer: ['s', 'u', 'n'],
   },
   {
-   question: ['a', 'a', 'n', 'm', 'l', 'i'],
-   title: " Sort it !",
-   answer: ['a', 'n', 'i', 'm', 'a', 'l']
+    question: ['o', 'o', 'n', 'm'],
+    title: ' Sort it !',
+    answer: ['m', 'o', 'o', 'n'],
   },
   {
-   question: ['o', 'f', 'e', 'r', 'l', 'w'],
-   title: " Sort it !",
-   answer: ['f', 'l', 'o', 'w', 'e', 'r']
+    question: ['a', 'a', 'n', 'm', 'l', 'i'],
+    title: ' Sort it !',
+    answer: ['a', 'n', 'i', 'm', 'a', 'l'],
   },
   {
-   question: ['o', 'd', 'w', 'n', 'i', 'w'],
-   title: " Sort it !",
-   answer: ['w', 'i', 'n', 'd', 'o', 'w']
+    question: ['o', 'f', 'e', 'r', 'l', 'w'],
+    title: ' Sort it !',
+    answer: ['f', 'l', 'o', 'w', 'e', 'r'],
+  },
+  {
+    question: ['o', 'd', 'w', 'n', 'i', 'w'],
+    title: ' Sort it !',
+    answer: ['w', 'i', 'n', 'd', 'o', 'w'],
   },
   {
     question: ['i', 'f', 'h', 's'],
-    title: " Sort it !",
-    answer: ['f', 'i', 's', 'h']
+    title: ' Sort it !',
+    answer: ['f', 'i', 's', 'h'],
   },
   {
     question: ['l', 'a', 'l', 'b'],
-    title: " Sort it !",
-    answer: ['b', 'a', 'l', 'l']
-  }
-]
+    title: ' Sort it !',
+    answer: ['b', 'a', 'l', 'l'],
+  },
+];

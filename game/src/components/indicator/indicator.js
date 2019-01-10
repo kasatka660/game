@@ -1,27 +1,30 @@
-import {indicatorView} from './indicator.template'
-import './indicator.scss'
+import indicatorView from './indicator.template';
+import './indicator.scss';
 
 
 export default class Indicator {
-	constructor(maxHP) {
+  constructor(maxHP) {
     this.maxHP = maxHP;
     this.HP = this.maxHP;
   }
-  render() {
+
+  static render() {
     return indicatorView;
   }
+
   reduceScore() {
-  	this.HP -=100;
+    this.HP -= 100;
   }
+
   increaseScore() {
-  	this.HP +=10;
+    this.HP += 10;
   }
+
   getCurrentScore() {
-  	return this.HP;
+    return this.HP;
   }
+
   setCurrentScore(side) {
-  	const width = $(side + ' .progress-bar').css('width', this.HP + '%');
+    $(`${side} .progress-bar`).css('width', `${this.HP}%`);
   }
 }
-
-

@@ -1,11 +1,10 @@
-import SimpleMathQuestion from './simpleMath/simpleMath'
-import TranslationQuestion from './translation/translation'
-import DragAndDropQuestion from './dragAndDrop/dragAndDrop'
-import renderQuestionDialog from './questionDialog.template'
+import SimpleMathQuestion from './simpleMath/simpleMath';
+import TranslationQuestion from './translation/translation';
+import DragAndDropQuestion from './dragAndDrop/dragAndDrop';
 
 export default class QuestionsControl {
   getQuestionByType(questionType) {
-    switch(questionType) {
+    switch (questionType) {
       case 'simpleMath':
         this.question = new SimpleMathQuestion();
         break;
@@ -15,22 +14,26 @@ export default class QuestionsControl {
       case 'dragAndDrop':
         this.question = new DragAndDropQuestion();
         break;
+      default:
+        break;
     }
   }
+
   isCorrect() {
     return this.question.checkIfCorrect();
   }
+
   renderQuestion() {
     return new Promise((resolve, reject) => {
       this.question.render();
       const submitBtn = $('#submit');
-      submitBtn.on('click', function() {
+      submitBtn.on('click', () => {
         if (this.question.checkIfCorrect()) {
           resolve();
         } else {
           reject();
         }
-      }.bind(this));
-    })
+      });
+    });
   }
 }

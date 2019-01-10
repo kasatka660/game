@@ -1,5 +1,5 @@
-export const dialogView = `
-<button type="button" class="btn btn-primary start-dialog-btn" id="pickTheSpell" data-toggle="modal">
+export default
+`<button type="button" class="btn btn-primary start-dialog-btn" id="pickTheSpell" data-toggle="modal">
   Pick the spell
 </button>
 <div class="modal fade" id="spellSelection" tabindex="-1" role="dialog"data-keyboard="false" data-backdrop="static" aria-hidden="true">
@@ -11,8 +11,8 @@ export const dialogView = `
       <div class="modal-body">
         <button type="button" id="simpleMath" class="btn choose-btn">Simple Math</button>
         <button type="button" id="translation" class="btn choose-btn">Translation</button>
-        <button type="button" id="dragAndDrop" class="btn choose-btn">Smth else</button>
+        <button type="button" id="dragAndDrop" class="btn choose-btn">Sort the Letters</button>
       </div>     
     </div>
   </div>
-</div>`
+</div>`;

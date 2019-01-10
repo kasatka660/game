@@ -1,29 +1,58 @@
-import {dialogView} from './dialog.template'
-import {renderQuestionDialog} from './../tasks/questionDialog.template'
-import QuestionsControl from './../tasks/questionsControl'
-import './dialog.scss'
-import {KEYS, correctAnswer, wrongAnswer} from './../../variables.js'
+import dialogView from './dialog.template';
+import renderQuestionDialog from '../tasks/questionDialog.template';
+import QuestionsControl from '../tasks/questionsControl';
+import './dialog.scss';
+import { KEYS, correctAnswer, wrongAnswer } from '../../variables';
+
+
+// Keyboard control functions.
+const spellPickingOnEnter = (e) => {
+  if (e.keyCode === KEYS.ENTER_KEY && $('#pickTheSpell').css('display') === 'block') {
+    $('#pickTheSpell').hide();
+    $('#spellSelection').modal('show');
+  }
+};
+const leftArrowMove = (e) => {
+  if (e.keyCode === KEYS.LEFT_ARROW) {
+    const chosenBtn = $('.selected');
+    if (chosenBtn.prev().length) {
+      chosenBtn.prev().addClass('selected');
+      chosenBtn.removeClass('selected');
+    }
+  }
+};
+const rightArrowMove = (e) => {
+  if (e.keyCode === KEYS.RIGHT_ARROW) {
+    const chosenBtn = $('.selected');
+    if (chosenBtn.next().length) {
+      chosenBtn.next().addClass('selected');
+      chosenBtn.removeClass('selected');
+    }
+  }
+};
 
 export default class Dialog {
-	constructor() {
+  constructor() {
     this.targetQuestions = [];
-	}
-  renderDialog() {
+  }
+
+  static renderDialog() {
     $('.middle').append(dialogView);
     $('.middle').append(renderQuestionDialog());
   }
+
   init(battle) {
     this.battle = battle;
     this.questionsControl = new QuestionsControl(battle);
     this.renderDialog();
-    $('#pickTheSpell').on('click', function() {
+    $('#pickTheSpell').on('click', () => {
       $('#pickTheSpell').hide();
-      $("#spellSelection").modal('show');
+      $('#spellSelection').modal('show');
     });
-    setTimeout(function() {
+    setTimeout(() => {
       document.body.addEventListener('keydown', spellPickingOnEnter);
-    }, 1000);  
-    $('#spellSelection').on('shown.bs.modal', function() {
+    }, 1000);
+    $('#spellSelection').on('shown.bs.modal', () => {
       $('#simpleMath').addClass('selected');
     });
 
@@ -32,14 +61,15 @@ export default class Dialog {
     this.toQuestionModeOnEnterBind = this.toQuestionModeOnEnter.bind(this);
     document.body.addEventListener('keydown', this.toQuestionModeOnEnterBind);
 
-    $(".choose-btn").on('click', function(e) {
-      const btnId = event.target.attributes.id.value;
+    $('.choose-btn').on('click', (e) => {
+      const btnId = e.target.attributes.id.value;
       this.toQuestionMode(btnId);
-    }.bind(this));
+    });
 
     this.processQuestionAnswerBind = this.processQuestionAnswer.bind(this);
-    document.body.addEventListener('keydown', this.processQuestionAnswerBind); 
+    document.body.addEventListener('keydown', this.processQuestionAnswerBind);
   }
+
   toQuestionMode(id) {
     $('#spellSelection').modal('hide');
     $('.selected').removeClass('selected');
@@ -49,76 +79,55 @@ export default class Dialog {
         this.processAnswer(true);
       },
       () => {
-        this.processAnswer(false)
+        this.processAnswer(false);
       });
   }
+
   processAnswer(isCorrect) {
     if (isCorrect) {
       $('#questionForm .modal-content').html(correctAnswer);
     } else {
       $('#questionForm .modal-content').html(wrongAnswer);
     }
-    setTimeout(function() {
-      $("#questionForm").modal('hide');
+    setTimeout(() => {
+      $('#questionForm').modal('hide');
       if (!isCorrect) {
         this.battle.hitThePlayer();
       } else {
         this.battle.hitTheMonster();
       }
-    }.bind(this), 1500);
-    setTimeout(function() {
-      this.battle.nextRound()
-    }.bind(this), 6000);
+    }, 1500);
+    setTimeout(() => {
+      this.battle.nextRound();
+    }, 6000);
   }
-  isModalOpen(id) {
+
+  static isModalOpen(id) {
     return $(id).hasClass('show');
-  } 
-  nextRound() {
+  }
+
+  static nextRound() {
     $('#pickTheSpell').show();
   }
+
   endGame() {
     document.body.removeEventListener('keydown', rightArrowMove);
     document.body.removeEventListener('keydown', leftArrowMove);
     document.body.removeEventListener('keydown', this.toQuestionModeOnEnterBind);
     document.body.removeEventListener('keydown', spellPickingOnEnter);
-    document.body.removeEventListener('keydown', this.processQuestionAnswerBind); 
+    document.body.removeEventListener('keydown', this.processQuestionAnswerBind);
   }
 
   processQuestionAnswer(e) {
-    if (e.keyCode === KEYS.ENTER_KEY && this.isModalOpen('#questionForm')){
+    if (e.keyCode === KEYS.ENTER_KEY && this.isModalOpen('#questionForm')) {
       this.processAnswer(this.questionsControl.isCorrect());
     }
   }
-  toQuestionModeOnEnter(e) {
-  if (e.keyCode === KEYS.ENTER_KEY && this.isModalOpen('#spellSelection')) {
-    const btnId = $('.selected').attr('id');
-    this.toQuestionMode(btnId);
-  }
-};
-}
 
-//Keyboard control functions.
-const spellPickingOnEnter = function(e) {
-  if (e.keyCode === KEYS.ENTER_KEY && $('#pickTheSpell').css('display') == 'block') {
-    $('#pickTheSpell').hide();
-    $("#spellSelection").modal('show');
-  }
-};
-const leftArrowMove = function(e) {
-  if (e.keyCode === KEYS.LEFT_ARROW) {
-    const chosenBtn = $('.selected');
-    if (chosenBtn.prev().length) {
-      chosenBtn.prev().addClass('selected');
-      chosenBtn.removeClass('selected');
+  toQuestionModeOnEnter(e) {
+    if (e.keyCode === KEYS.ENTER_KEY && this.isModalOpen('#spellSelection')) {
+      const btnId = $('.selected').attr('id');
+      this.toQuestionMode(btnId);
     }
   }
-};
-const rightArrowMove = function(e) {
-  if (e.keyCode === KEYS.RIGHT_ARROW) {
-    const chosenBtn = $('.selected');
-    if (chosenBtn.next().length) {
-      chosenBtn.next().addClass('selected');
-      chosenBtn.removeClass('selected');
-    }
-  }
-};
+}

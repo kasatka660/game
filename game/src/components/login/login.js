@@ -1,60 +1,56 @@
-import './login.scss'
-import {startGameBtn, loginForm} from './login.template.js'
-import Player from './../player/player'
-import {KEYS} from './../../variables.js'
+import './login.scss';
+import { startGameBtn, loginForm } from './login.template';
+import Player from '../player/player';
+import { KEYS } from '../../variables';
 
-export default () => {
-  return new Promise(function(resolve, reject) {
-    document.querySelector('.container').innerHTML = loginForm;
-     $('#loginForm').on('shown.bs.modal', function () {
-      $('#usernameInput').trigger('focus')
-    });
-    const submitBtn = document.querySelector('#submit');
-    submitBtn.addEventListener('click', function() {
-     addNewPlayer();
-    });
-    const nameInput = document.querySelector('input');
-    nameInput.addEventListener('keydown', function(e) {
-      if (e.keyCode === KEYS.ENTER_KEY) {
-        addNewPlayer();
-      }
-    });
-    $('#loginForm').on('hidden.bs.modal', function () {
-      addStartBtn();
-    });
+export default () => new Promise(((resolve) => {
+  document.querySelector('.container').innerHTML = loginForm;
+  $('#loginForm').on('shown.bs.modal', () => {
+    $('#usernameInput').trigger('focus');
+  });
+  const nameInput = document.querySelector('input');
+
+  const loginOnkeydown = (e) => {
+    if (e.keyCode === KEYS.ENTER_KEY) {
+      $('.start-game-btn').remove();
+      $('#loginForm').modal('show');
+    }
+  };
 
   function addNewPlayer() {
-    if (nameInput.value.length == 0) {
+    if (nameInput.value.length === 0) {
       return;
     }
-    
-    document.body.removeEventListener('keydown',loginOnkeydown);
+    document.body.removeEventListener('keydown', loginOnkeydown);
     const newPlayer = new Player(nameInput.value);
     $('#loginForm').modal('hide');
     $('#loginForm').remove();
     $('.modal-backdrop').remove();
     resolve(newPlayer);
-  } 
+  }
 
+  const submitBtn = document.querySelector('#submit');
+  submitBtn.addEventListener('click', () => {
+    addNewPlayer();
+  });
+
+
+  nameInput.addEventListener('keydown', (e) => {
+    if (e.keyCode === KEYS.ENTER_KEY) {
+      addNewPlayer();
+    }
+  });
   function addStartBtn() {
-    $('.container').append(startGameBtn); 
-    $('.start-game-btn').focus()
-    document.querySelector('.start-game-btn').addEventListener('click', function() {
+    $('.container').append(startGameBtn);
+    $('.start-game-btn').focus();
+    document.querySelector('.start-game-btn').addEventListener('click', () => {
       document.querySelector('.start-game-btn').remove();
-      $('#loginForm').modal('show'); 
+      $('#loginForm').modal('show');
     });
-    
     document.body.addEventListener('keydown', loginOnkeydown);
-
   }
+  $('#loginForm').on('hidden.bs.modal', () => {
+    addStartBtn();
+  });
   addStartBtn();
-  })  
-}
-
-const loginOnkeydown = function(e) {
-  if (e.keyCode === KEYS.ENTER_KEY) {
-    $('.start-game-btn').remove();
-    $('#loginForm').modal('show');
-  }
-}
-
+}));

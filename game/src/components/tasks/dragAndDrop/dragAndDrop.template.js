@@ -1,4 +1,4 @@
-export function createDragAndDropQuestion(dragDrop) {	
+export default function createDragAndDropQuestion(dragDrop) {
   return `<div class="modal-header">
             <h5 class="modal-title">${dragDrop.title}</h5>
           </div>
@@ -9,5 +9,5 @@ export function createDragAndDropQuestion(dragDrop) {
             </div>
             <div class="modal-footer">
               <button type="button" id="submit" class="btn btn-submit shadow-none">Submit</button>
-            </div>`
+            </div>`;
 }

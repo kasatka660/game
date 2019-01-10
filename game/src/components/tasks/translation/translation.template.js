@@ -1,4 +1,4 @@
-export function createTranslationQuestion(translation) {
+export default function createTranslationQuestion(translation) {
   return `
           <div class="modal-header">
             <h5 class="modal-title">${translation.question}</h5>
@@ -8,7 +8,5 @@ export function createTranslationQuestion(translation) {
           </div>
           <div class="modal-footer">
             <button type="button" id="submit" class="btn btn-submit shadow-none">Submit</button>
-          </div>`
+          </div>`;
 }
-
-	
