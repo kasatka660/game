@@ -2,7 +2,6 @@ export const scoreTable = `
 	<table class="table table-dark">
   <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Name</th>
       <th scope="col">Score</th>
     </tr>
@@ -14,7 +13,6 @@ export const scoreTable = `
 export function createTableRow(player) {
   return ` 
     <tr>
-      <th scope="row">2</th>
       <td>${player.name}</td>
       <td>${player.score}</td>
     </tr>`

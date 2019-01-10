@@ -58,7 +58,13 @@ export default class Battle {
         this.monster.renderMonster(this.roundCount);
       } else {
         this.dialog.endGame();
-        this.endGame();
+          fetch('http://localhost:3000/new-player', {
+            method: 'post',
+            body: new URLSearchParams(`name=${this.player.playerName}&score=${this.player.playerScore}`)
+            })
+          .then((response) => {
+            this.endGame();
+        });  
       }
     }.bind(this)); 
   }
@@ -67,31 +73,30 @@ export default class Battle {
     $('.right-side').html('');
     $('.left-side').html('');
     $('.middle').html('');
-    const players = [
-      {
-        name: 'Lena',
-        score: "100"
-      },
-      {
-        name: 'Lena',
-        score: "200"
-      }
-    ];
-    $('.middle').append(scoreTable);
-    players.map( (player) => $('.middle tbody').append(createTableRow(player)));
-    $('.middle').append(newGameBtn);
-    document.body.addEventListener('keydown', function(e) {
-      if (e.keyCode === KEYS.ENTER_KEY && $('#newGameBtn').length) {
-        this.player.playerScore = START_SCORE;
-        $('.container').html('');
-        this.startBattle();
-      };
-    }.bind(this));
-    $('#newGameBtn').on('click', function() {
-      this.player.playerScore = START_SCORE;
-      $('.container').html('');
-      this.startBattle();
-    }.bind(this));
+
+    fetch('http://localhost:3000/result')
+      .then(function(response) {
+        return response.json();
+       })
+      .then(function(players) {
+        $('.middle').append(scoreTable);
+        players.map( (player) => $('.middle tbody').prepend(createTableRow(player)));
+
+        $('.middle').append(newGameBtn);
+        document.body.addEventListener('keydown', function(e) {
+          if (e.keyCode === KEYS.ENTER_KEY && $('#newGameBtn').length) {
+              this.player.playerScore = START_SCORE;
+              $('.container').html('');
+              this.startBattle();
+            };
+        }.bind(this));
+        $('#newGameBtn').on('click', function() {
+          this.player.playerScore = START_SCORE;
+          $('.container').html('');
+          this.startBattle();
+        }.bind(this));
+      })
+      .catch( alert );
   }
 }
 

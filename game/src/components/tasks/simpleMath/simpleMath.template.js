@@ -7,6 +7,5 @@ export function createSimpleMathQuestion(simpleMath) {
             </div>
             <div class="modal-footer">
               <button type="button" id="submit" class="btn btn-submit shadow-none">Submit</button>
-            </div>
-          </div>`
+            </div>`
 }

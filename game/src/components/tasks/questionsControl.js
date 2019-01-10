@@ -32,7 +32,5 @@ export default class QuestionsControl {
         }
       }.bind(this));
     })
- 
   }
-
 }

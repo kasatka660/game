@@ -32,7 +32,7 @@ export default class Dialog {
     this.toQuestionModeOnEnterBind = this.toQuestionModeOnEnter.bind(this);
     document.body.addEventListener('keydown', this.toQuestionModeOnEnterBind);
 
-    $(".shoose-btn").on('click', function(e) {
+    $(".choose-btn").on('click', function(e) {
       const btnId = event.target.attributes.id.value;
       this.toQuestionMode(btnId);
     }.bind(this));

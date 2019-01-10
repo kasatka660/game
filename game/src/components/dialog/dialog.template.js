@@ -9,9 +9,9 @@ export const dialogView = `
         <h5 class="modal-title">Pick the Spell</h5>
       </div>
       <div class="modal-body">
-        <button type="button" id="simpleMath" class="btn shoose-btn">Simple Math</button>
-        <button type="button" id="translation" class="btn shoose-btn">Translation</button>
-        <button type="button" id="dragAndDrop" class="btn shoose-btn">Smth else</button>
+        <button type="button" id="simpleMath" class="btn choose-btn">Simple Math</button>
+        <button type="button" id="translation" class="btn choose-btn">Translation</button>
+        <button type="button" id="dragAndDrop" class="btn choose-btn">Smth else</button>
       </div>     
     </div>
   </div>
