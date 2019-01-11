@@ -98,7 +98,7 @@ export default class Dialog {
       }
     }, 1500);
     setTimeout(() => {
-      this.nextRound();
+      Dialog.nextRound();
     }, 6000);
   }
 

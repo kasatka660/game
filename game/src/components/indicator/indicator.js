@@ -13,7 +13,7 @@ export default class Indicator {
   }
 
   reduceScore() {
-    this.HP -= 10;
+    this.HP -= 25;
   }
 
   getCurrentScore() {
