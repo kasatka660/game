@@ -10,16 +10,16 @@ export default class Monster {
     this.indicator = new Indicator(this.monsterScore);
   }
 
-  renderMonster(monsterNumb) {
+  static renderMonster(monsterNumb) {
     $('.right-side').append(Indicator.render() + monsterView);
-    $('.monster-name').html(this.generateMonsterName());
-    const monsterPics = ['./../src/screens/home/images/lady-monster.png',
-      './../src/screens/home/images/fish-monster.png',
-      './../src/screens/home/images/witch-monster.png'];
+    $('.monster-name').html(Monster.generateMonsterName());
+    const monsterPics = ['./../src/images/lady-monster.png',
+      './../src/images/fish-monster.png',
+      './../src/images/witch-monster.png'];
     $('.monster').attr('src', monsterPics[monsterNumb]);
   }
 
-  generateMonsterName() {
+  static generateMonsterName() {
     const monsterFirstNamePart = ['mad', 'angry', 'silly', 'huge', 'selfish', 'horrible', 'fearful'];
     const monsterSecondNamePart = ['Beast', 'Horror', 'Giant', 'Devil', 'Mutant'];
     const monsterThirdNamePart = ['Sally', 'Peggy', 'Sue', 'Jammy'];
@@ -38,7 +38,7 @@ export default class Monster {
   }
 
   static playSound() {
-    const audio = new Audio('./sound-monster.wav');
+    const audio = new Audio('./../src/audio/sound-monster.wav');
     audio.play();
   }
 }

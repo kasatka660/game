@@ -1,12 +1,13 @@
-import login from './components/login/login';
-window.$ = require('jquery');
+import login from './login';
 import 'bootstrap';
+
+window.$ = require('jquery');
 
 test('login form display', () => {
   document.body.innerHTML = '<div class="container"></div>';
 
   login().then((newPlayer) => {
-  	expect(newPlayer.playerName).toBe('Test');
+    expect(newPlayer.playerName).toBe('Test');
   });
   const startBtn = document.querySelector('.start-game-btn');
 
@@ -19,5 +20,4 @@ test('login form display', () => {
 
   document.querySelector('#usernameInput').value = 'Test';
   loginBtn.click();
-
 });

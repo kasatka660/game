@@ -1,4 +1,5 @@
 import dialogView from './dialog.template';
+import Battle from './../../screens/battle/battle'
 import renderQuestionDialog from '../tasks/questionDialog.template';
 import QuestionsControl from '../tasks/questionsControl';
 import './dialog.scss';
@@ -98,7 +99,7 @@ export default class Dialog {
       }
     }, 1500);
     setTimeout(() => {
-      this.battle.nextRound();
+      Battle.nextRound();
     }, 6000);
   }
 
@@ -119,13 +120,13 @@ export default class Dialog {
   }
 
   processQuestionAnswer(e) {
-    if (e.keyCode === KEYS.ENTER_KEY && this.isModalOpen('#questionForm')) {
+    if (e.keyCode === KEYS.ENTER_KEY && Dialog.isModalOpen('#questionForm')) {
       this.processAnswer(this.questionsControl.isCorrect());
     }
   }
 
   toQuestionModeOnEnter(e) {
-    if (e.keyCode === KEYS.ENTER_KEY && this.isModalOpen('#spellSelection')) {
+    if (e.keyCode === KEYS.ENTER_KEY && Dialog.isModalOpen('#spellSelection')) {
       const btnId = $('.selected').attr('id');
       this.toQuestionMode(btnId);
     }

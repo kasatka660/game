@@ -21,7 +21,7 @@ export default class Player {
   }
 
   static playSound() {
-    const audio = new Audio('./sound-player.wav');
+    const audio = new Audio('./../src/audio/sound-player.wav');
     audio.play();
   }
 }

@@ -8,6 +8,7 @@ import playerHitting from '../../components/hit/hitPlayer';
 import newGameBtn from './newGame.template';
 import { START_SCORE, KEYS } from '../../variables';
 import { scoreTable, createTableRow } from '../../components/score/score.template';
+
 require('isomorphic-fetch');
 
 export default class Battle {
@@ -22,12 +23,12 @@ export default class Battle {
     document.body.classList.add('battle');
     $('.container').append(battleGrid);
     this.player.renderPlayer();
-    this.monster.renderMonster(this.roundCount);
+    Monster.renderMonster(this.roundCount);
     this.dialog.init(this);
   }
 
-  nextRound() {
-    this.dialog.nextRound();
+  static nextRound() {
+    Dialog.nextRound();
   }
 
   hitTheMonster() {
@@ -62,10 +63,10 @@ export default class Battle {
       this.roundCount += 1;
       if (this.roundCount < 3) {
         this.monster = new Monster();
-        this.monster.renderMonster(this.roundCount);
+        Monster.renderMonster(this.roundCount);
       } else {
         this.dialog.endGame();
-        fetch('http://localhost:3000/new-player', {
+        fetch('https://rss-game-kasatka660.herokuapp.com/new-player', {
           method: 'post',
           body: new URLSearchParams(`name=${this.player.playerName}&score=${this.player.playerScore}`),
         })
@@ -82,11 +83,11 @@ export default class Battle {
     $('.left-side').html('');
     $('.middle').html('');
 
-    fetch('http://localhost:3000/result')
+    fetch('https://rss-game-kasatka660.herokuapp.com/result')
       .then(response => response.json())
       .then((players) => {
         $('.middle').append(scoreTable);
-        players.map(player => $('.middle tbody').prepend(createTableRow(player)));
+        players.map(player => $('.middle tbody').append(createTableRow(player)));
 
         $('.middle').append(newGameBtn);
         document.body.addEventListener('keydown', (e) => {

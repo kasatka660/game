@@ -1,9 +1,9 @@
 import Battle from './battle';
-import Monster from './../../components/monster/monster'
-import Player from './../../components/player/player'
+import Monster from '../../components/monster/monster';
+import Player from '../../components/player/player';
+import 'bootstrap';
 
 window.$ = require('jquery');
-import 'bootstrap';
 
 test('battle screen display', () => {
   document.body.innerHTML = '<div class="container"></div>';
@@ -18,8 +18,8 @@ test('battle screen display', () => {
   expect($('.right-side').length).not.toBeNull();
   expect($('#pickTheSpell')).not.toBeNull();
   $('#pickTheSpell').click();
-  setTimeout( () =>  expect($('#pickTheSpell').css('display')).toBe('block'), 100);
-  
+  setTimeout(() => expect($('#pickTheSpell').css('display')).toBe('block'), 100);
+
   newBattle.dialog.toQuestionMode('simpleMath');
   let insertedAnswer = newBattle.dialog.questionsControl.question.currentQuestion.answer;
   $('#answer').val(insertedAnswer);
@@ -30,7 +30,7 @@ test('battle screen display', () => {
   insertedAnswer = newBattle.dialog.questionsControl.question.currentQuestion.answer;
   $('#answer').val(insertedAnswer);
   $('#submit').click();
-  $('right-side')
+  $('right-side');
 
 
   newBattle.dialog.toQuestionMode('translation');
@@ -41,4 +41,3 @@ test('battle screen display', () => {
   newBattle.endGame();
   expect($('table').length).not.toBeNull();
 });
-

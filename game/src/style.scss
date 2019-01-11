@@ -1,7 +1,7 @@
 @import "~bootstrap/scss/bootstrap";
 
 body {
-  background: url('screens/home/images/underwater_home.jpg');
+  background: url('./../src/images/underwater_home.jpg');
   background-size: cover;
 }
 
@@ -29,6 +29,10 @@ h3 {
     opacity: 0.8;
   }
 }
+
+table + #newGameBtn {
+  margin: 50px auto;
+} 
 
 
 /* Animation. */
