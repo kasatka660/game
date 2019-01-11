@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser= require('body-parser');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const MongoClient = require('mongodb').MongoClient
 
 app.use(function(req, res, next) {
@@ -28,7 +28,7 @@ app.post('/new-player', (req, res) => {
 });
 
 app.get('/result', (req, res) => {
-  db.collection('players').find().toArray(function(err, results) {
+  db.collection('players').find().sort({_id:-1}).limit(5).toArray(function(err, results) {
   console.log(results);
   let result = JSON.stringify(results);
   res.send(result);
