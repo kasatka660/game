@@ -1,5 +1,4 @@
 import dialogView from './dialog.template';
-import Battle from './../../screens/battle/battle'
 import renderQuestionDialog from '../tasks/questionDialog.template';
 import QuestionsControl from '../tasks/questionsControl';
 import './dialog.scss';
@@ -99,7 +98,7 @@ export default class Dialog {
       }
     }, 1500);
     setTimeout(() => {
-      Battle.nextRound();
+      this.nextRound();
     }, 6000);
   }
 

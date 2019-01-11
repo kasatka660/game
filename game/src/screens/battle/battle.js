@@ -27,10 +27,6 @@ export default class Battle {
     this.dialog.init(this);
   }
 
-  static nextRound() {
-    Dialog.nextRound();
-  }
-
   hitTheMonster() {
     $('.middle').append(monsterHitting);
     Monster.playSound();
