@@ -64,7 +64,7 @@ export default class Battle {
         this.dialog.endGame();
         fetch('https://rss-game-kasatka660.herokuapp.com/new-player', {
           method: 'post',
-          body: new URLSearchParams(`name=${this.player.playerName}&score=${this.player.playerScore}`),
+          body: new URLSearchParams(`name=${this.player.playerName}&score=${this.player.indicator.getCurrentScore()}`),
         })
           .then(() => {
             this.endGame();
