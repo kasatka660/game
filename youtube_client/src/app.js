@@ -43,6 +43,9 @@ export default class App {
         const dx = unify(event).clientX - x0;
         const s = Math.sign(dx);
         x0 = null;
+        if (Math.abs(dx) < 20 ) {
+          return;
+        }
         if (s < 0) {
           that.search.nextPage();
         } else {
